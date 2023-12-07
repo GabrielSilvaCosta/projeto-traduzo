@@ -1,3 +1,4 @@
+<!-- views/templates/index.html -->
 <html>
 <head>
   <meta charset="UTF-8">
@@ -7,16 +8,21 @@
 
 <body>
   <div class="container">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" class="header">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" class="header">
     <div class="wrapper">
       <form method="post">
         <div class="text-input">
-          <textarea name="text-to-translate" spellcheck="false" class="from-text" placeholder="O que deseja traduzir"></textarea>
-          <textarea spellcheck="false" readonly disabled class="to-text">Requisito ainda não desenvolvido</textarea>
+          <textarea name="text-to-translate" spellcheck="false" class="from-text" placeholder="{{ text_to_translate_placeholder }}">{{ text_to_translate_placeholder }}</textarea>
+          <textarea spellcheck="false" readonly disabled class="to-text">{{ translated_text }}</textarea>
         </div>
         <ul class="controls">
           <li class="row from">
             <select name="translate-from">
+              {% for language in languages %}
+                <option value="{{ language.acronym|lower }}" {% if language.acronym|lower == translate_from %}selected{% endif %}>
+                  {{ language.name|upper }}
+                </option>
+              {% endfor %}
             </select>
           </li>
           <div>
@@ -24,12 +30,18 @@
           </div>
           <li class="row to">
             <select name="translate-to">
+              {% for language in languages %}
+                <option value="{{ language.acronym|lower }}" {% if language.acronym|lower == translate_to %}selected{% endif %}>
+                  {{ language.name|upper }}
+                </option>
+              {% endfor %}
+              </option> 
             </select>
           </li>
         </ul>
-      </div>
-      <button class="main-button" type="submit" formaction="/">Traduzir</button>
-    </form>
+        <button class="main-button" type="submit" formaction="/">Traduzir</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
