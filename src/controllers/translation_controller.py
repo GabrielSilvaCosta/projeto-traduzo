@@ -1,7 +1,7 @@
-# src/controllers/translation_controller.py
 from flask import Blueprint, render_template, request
 from deep_translator import GoogleTranslator
 from models.language_model import LanguageModel
+from models.history_model import HistoryModel
 
 translation_controller = Blueprint("translation", __name__)
 
@@ -16,6 +16,13 @@ def index():
         translated_text = GoogleTranslator(
             source=translate_from, target=translate_to
         ).translate(text_to_translate)
+
+        history_data = {
+            "text_to_translate": text_to_translate,
+            "translate_from": translate_from,
+            "translate_to": translate_to,
+        }
+        HistoryModel(history_data).save()
 
         return render_template(
             "index.html",
@@ -42,9 +49,18 @@ def reverse_translation():
     translate_from = request.form.get("translate-from")
     translate_to = request.form.get("translate-to")
 
+    # Realiza a tradução reversa
     reversed_translated_text = GoogleTranslator(
         source=translate_to, target=translate_from
     ).translate(text_to_translate)
+
+    # Salva no histórico
+    history_data = {
+        "text_to_translate": text_to_translate,
+        "translate_from": translate_from,
+        "translate_to": translate_to,
+    }
+    HistoryModel(history_data).save()
 
     return render_template(
         "index.html",
