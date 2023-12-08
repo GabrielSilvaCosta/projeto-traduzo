@@ -49,8 +49,8 @@ def reverse_translation():
     return render_template(
         "index.html",
         languages=LanguageModel.list_dicts(),
-        text_to_translate_placeholder=reversed_translated_text,
+        text_to_translate_placeholder=text_to_translate,
         translate_from=translate_to,
         translate_to=translate_from,
-        translated_text=text_to_translate,
+        translated_text=reversed_translated_text,
     )

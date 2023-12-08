@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>Traduzo - Trybe</title>
@@ -13,14 +14,16 @@
         <div class="text-input">
           <textarea name="text-to-translate" spellcheck="false" class="from-text" placeholder="{{ text_to_translate_placeholder }}">{{ text_to_translate_placeholder }}</textarea>
           <textarea spellcheck="false" readonly disabled class="to-text">{{ translated_text }}</textarea>
+
         </div>
         <ul class="controls">
           <li class="row from">
             <select name="translate-from">
               {% for language in languages %}
-                <option value="{{ language.acronym|lower }}" {% if language.acronym|lower == translate_from %}selected{% endif %}>
-                  {{ language.name|upper }}
-                </option>
+              <option value="{{ language.acronym|lower }}" {% if language.acronym|lower==translate_from %}selected{%
+                endif %}>
+                {{ language.name|upper }}
+              </option>
               {% endfor %}
             </select>
           </li>
@@ -30,10 +33,8 @@
           <li class="row to">
             <select name="translate-to">
               {% for language in languages %}
-              <option
-              value="{{ language.acronym }}"
-              {% if language.acronym == translate_to %} selected
-              {% endif %}>{{ language.name | upper }}</option>
+              <option value="{{ language.acronym }}" {% if language.acronym==translate_to %} selected {% endif %}>{{
+                language.name | upper }}</option>
               {% endfor %}
             </select>
           </li>
@@ -43,4 +44,5 @@
     </div>
   </div>
 </body>
+
 </html>
