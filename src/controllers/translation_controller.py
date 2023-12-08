@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request
 from deep_translator import GoogleTranslator
+from flask import Blueprint, render_template, request
 from models.language_model import LanguageModel
 from models.history_model import HistoryModel
 
@@ -65,8 +65,8 @@ def reverse_translation():
     return render_template(
         "index.html",
         languages=LanguageModel.list_dicts(),
-        text_to_translate_placeholder=text_to_translate,
+        text_to_translate_placeholder=reversed_translated_text,
         translate_from=translate_to,
         translate_to=translate_from,
-        translated_text=reversed_translated_text,
+        translated_text=text_to_translate,  # Mantendo a string original
     )
