@@ -49,12 +49,10 @@ def reverse_translation():
     translate_from = request.form.get("translate-from")
     translate_to = request.form.get("translate-to")
 
-    # Realiza a tradução reversa
     reversed_translated_text = GoogleTranslator(
-        source=translate_to, target=translate_from
+        source=translate_from, target=translate_to
     ).translate(text_to_translate)
 
-    # Salva no histórico
     history_data = {
         "text_to_translate": text_to_translate,
         "translate_from": translate_from,
@@ -68,5 +66,5 @@ def reverse_translation():
         text_to_translate_placeholder=reversed_translated_text,
         translate_from=translate_to,
         translate_to=translate_from,
-        translated_text=text_to_translate,  # Mantendo a string original
+        translated_text=text_to_translate,
     )
